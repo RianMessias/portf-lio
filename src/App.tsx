@@ -32,7 +32,7 @@ function App() {
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <span className="text-xl font-bold bg-gradient-to-r from-blue-500 to-blue-700 bg-clip-text text-transparent">
+            <span className="text-xl font-bold bg-gradient-to-r custom-color to-blue-700 bg-clip-text text-transparent">
               RM
             </span>
             <div className="hidden md:block">
@@ -91,7 +91,7 @@ function App() {
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
             <div>
-              <h2 className="text-blue-500 text-lg font-medium mb-4">Desenvolvedor Web</h2>
+              <h2 className="custom-color text-lg font-medium mb-4">Desenvolvedor Web</h2>
               <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
                 <TypewriterComponent text="Olá, eu sou Rian Messias" />
               </h1>
@@ -121,12 +121,12 @@ function App() {
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
             <div className="relative">
-              <img
+                <img
                 src="https://images.unsplash.com/photo-1607705703571-c5a8695f18f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
                 alt="Espaço de trabalho do desenvolvedor"
                 className="rounded-lg shadow-2xl"
               />
-              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-transparent rounded-lg"></div>
+              
             </div>
           </div>
         </div>
@@ -136,7 +136,7 @@ function App() {
       <section id="experiencia" className="py-20 bg-gray-900/50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold inline-block bg-gradient-to-r from-blue-500 to-blue-700 bg-clip-text text-transparent">
+            <h2 className="text-3xl font-bold inline-block bg-gradient-to-r custom-color to-blue-700 bg-clip-text text-transparent">
               Minha Experiência
             </h2>
           </div>
@@ -152,7 +152,7 @@ function App() {
       <section id="habilidades" className="py-20 bg-gradient-to-b from-gray-900/50 to-gray-950">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold inline-block bg-gradient-to-r from-blue-500 to-blue-700 bg-clip-text text-transparent">
+            <h2 className="text-3xl font-bold inline-block bg-gradient-to-r custom-color to-blue-700 bg-clip-text text-transparent">
               Habilidades
             </h2>
           </div>
@@ -180,7 +180,7 @@ function App() {
       <section id="projetos" className="py-20 bg-gray-900/50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold inline-block bg-gradient-to-r from-blue-500 to-blue-700 bg-clip-text text-transparent">
+            <h2 className="text-3xl font-bold inline-block bg-gradient-to-r custom-color to-blue-700 bg-clip-text text-transparent">
               Projetos
             </h2>
           </div>
@@ -211,7 +211,7 @@ function App() {
       <section id="contato" className="py-20 bg-gradient-to-b from-gray-900/50 to-gray-950">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold inline-block bg-gradient-to-r from-blue-500 to-blue-700 bg-clip-text text-transparent">
+            <h2 className="text-3xl font-bold inline-block bg-gradient-to-r custom-color to-blue-700 bg-clip-text text-transparent">
               Entre em Contato
             </h2>
           </div>

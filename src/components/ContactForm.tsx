@@ -4,13 +4,43 @@ const ContactForm: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     message: ''
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
+
+    // Enviar dados do formulário para o servidor
+    fetch('http://localhost:3000/send', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((err) => {
+            throw new Error(err.error);
+          });
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log('Success:', data);
+        alert(data.message);
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          message: ''
+        });
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert('Erro ao enviar mensagem.');
+      });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -22,7 +52,7 @@ const ContactForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6" id="contact-form">
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-gray-400 mb-2">
           Nome
@@ -46,6 +76,20 @@ const ContactForm: React.FC = () => {
           id="email"
           name="email"
           value={formData.email}
+          onChange={handleChange}
+          required
+          className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+        />
+      </div>
+      <div>
+        <label htmlFor="phone" className="block text-sm font-medium text-gray-400 mb-2">
+          Telefone
+        </label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          value={formData.phone}
           onChange={handleChange}
           required
           className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
