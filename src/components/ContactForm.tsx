@@ -1,122 +1,67 @@
 import React, { useState } from 'react';
+import emailjs from 'emailjs-com';
 
-const ContactForm: React.FC = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: ''
-  });
+function FormularioContato() {
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [mensagem, setMensagem] = useState('');
+  const [mensagemStatus, setMensagemStatus] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    const templateParams = {
+      from_name: nome,
+      from_email: email,
+      message: mensagem,
+    };
 
-    // Enviar dados do formulário para o servidor
-    fetch('http://localhost:3000/send', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    })
+    emailjs
+      .send('service_d8uvkql', 'template_zqg9zhr', templateParams, '_nUjCose86p7xlUsi')
       .then((response) => {
-        if (!response.ok) {
-          return response.json().then((err) => {
-            throw new Error(err.error);
-          });
-        }
-        return response.json();
+        console.log('E-mail enviado com sucesso!', response.status, response.text);
+        setMensagemStatus('E-mail enviado com sucesso!');
       })
-      .then((data) => {
-        console.log('Success:', data);
-        alert(data.message);
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          message: ''
-        });
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        alert('Erro ao enviar mensagem.');
+      .catch((err) => {
+        console.error('Erro ao enviar o e-mail:', err);
+        setMensagemStatus('Erro ao enviar o e-mail. Tente novamente.');
       });
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
   return (
-    <form onSubmit={handleSubmit} className="space-y-6" id="contact-form">
-      <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-400 mb-2">
-          Nome
-        </label>
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="name" className="block text-sm font-medium text-gray-400 mb-2">
+        Nome:
         <input
           type="text"
-          id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}
           className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
         />
-      </div>
-      <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-2">
-          E-mail
-        </label>
+      </label>
+      <br />
+      <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-2">
+        E-mail:
         <input
           type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-          className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+           className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
         />
-      </div>
-      <div>
-        <label htmlFor="phone" className="block text-sm font-medium text-gray-400 mb-2">
-          Telefone
-        </label>
-        <input
-          type="tel"
-          id="phone"
-          name="phone"
-          value={formData.phone}
-          onChange={handleChange}
-          required
-          className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+      </label>
+      <br />
+      <label htmlFor="message" className="block text-sm font-medium text-gray-400 mb-2">
+        Mensagem:
+        <textarea  className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+          value={mensagem}
+          onChange={(e) => setMensagem(e.target.value)}
         />
-      </div>
-      <div>
-        <label htmlFor="message" className="block text-sm font-medium text-gray-400 mb-2">
-          Mensagem
-        </label>
-        <textarea
-          id="message"
-          name="message"
-          value={formData.message}
-          onChange={handleChange}
-          required
-          rows={4}
-          className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
-        />
-      </div>
-      <button
-        type="submit"
-        className="w-full px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all hover:scale-105 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
-      >
-        Enviar Mensagem
-      </button>
+      </label>
+      <br />
+      <button type="submit"
+        className="w-full px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all hover:scale-105 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900">Enviar</button>
+      <p>{mensagemStatus}</p>
     </form>
   );
 }
 
-export default ContactForm;
+export default FormularioContato;
